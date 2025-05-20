@@ -172,7 +172,7 @@ void GioiThieu() {
 	printf("╣");
 	
 	gotoxy(51, 4);
-	printf("NHÓM 24.Nh15B");
+	printf("NHÓM 24.Nh15A");
 	gotoxy(33, 6);
 	setColor(10);
 	printf("ĐỀ TÀI: XÂY DỰNG CHƯƠNG TRÌNH TÌM CÂY KHUNG NHỎ NHẤT");
@@ -1147,7 +1147,7 @@ void nhap_canh() {
         	setColor(4);
             gotoxy(10, cur++);
             closegraph();
-            printf("Dữ liệu nhập vào không hợp lệ, vui lòng kiếm tra lại!!!\n");
+            printf("Dữ liệu nhập vào không hợp lệ, vui lòng kiểm tra lại!!!\n");
             Sleep(1000);
             system("cls");
             Khung();
