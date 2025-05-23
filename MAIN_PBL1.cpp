@@ -689,11 +689,10 @@ void NhapDuLieuTuDoThi() {
         printf("Đồ thị không liên thông!\n");
         gotoxy(10, ++cur);
         printf("Không thể tạo cây khung nhỏ nhất!");
-        Sleep(1000);
+        Sleep(2000);
         closegraph();
         system("cls");
         Khung();
-        clearInputBuffer();
         MenuQuayLai(0, -5);
     }
     gotoxy(10, ++cur);
