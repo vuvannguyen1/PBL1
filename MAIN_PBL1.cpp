@@ -257,15 +257,16 @@ void Khung() {
     gotoxy(20, 7);
     printf("- Nguyễn Văn Vũ");
     gotoxy(59, 5);
-    printf("Giáo viên hướng dẫn:");
+    printf("Giảng viên hướng dẫn:");
     gotoxy(60, 6);
     printf("TS. Nguyễn Văn Hiệu");
     gotoxy(10, 10);
 }
 
 void MenuQuayLai(int x, int y) {
+    char check;
     int choice;
-    char input[10];
+    char input[100];
 
     setColor(11);
     gotoxy(30 + x, 15 + y);
@@ -293,7 +294,21 @@ void MenuQuayLai(int x, int y) {
     printf("Nhập yêu cầu:                                            ");
     gotoxy(24 + x, 21 + y);
     fgets(input, sizeof(input), stdin);
-    sscanf(input, "%d", &choice);
+    while (sscanf(input, "%d %c", &choice, &check) != 1) {
+        setColor(4);
+        gotoxy(10 + x, 22 + y);
+        printf("Lựa chọn không hợp lệ! Vui lòng nhập lại!!!");
+        Sleep(1000);
+        gotoxy(10 + x, 21 + y);
+        setColor(8);
+        printf("Nhập yêu cầu:                                            ");
+        setColor(0);
+        gotoxy(10 + x, 22 + y);
+        printf("Lựa chọn không hợp lệ! Vui lòng nhập lại!!!");
+        gotoxy(24 + x, 21 + y);
+        setColor(8);
+        fgets(input, sizeof(input), stdin);
+    }
 
     switch (choice) {
         case 1:
@@ -314,13 +329,17 @@ void MenuQuayLai(int x, int y) {
             gotoxy(10, 22 + y);
             printf("Lựa chọn không hợp lệ, vui lòng nhập lại!!!");
             Sleep(1000);
+            setColor(0);
+            gotoxy(10, 22 + y);
+            printf("Lựa chọn không hợp lệ, vui lòng nhập lại!!!");
             MenuQuayLai(x, y);
     }
 }
 
 void MenuNhapLieu() {
+	char check;
     int choice;
-    char input[10];
+    char input[100];
 
     do {
         system("cls");
@@ -343,7 +362,13 @@ void MenuNhapLieu() {
         setColor(8);
         printf("Nhập yêu cầu: ");
         fgets(input, sizeof(input), stdin);
-        sscanf(input, "%d", &choice);
+        if (sscanf(input, "%d %c", &choice, &check) != 1) {
+        	gotoxy(10, 18);
+        	setColor(4);
+        	printf("Lựa chọn không hợp lệ! Vui lòng nhập lại!!!");
+        	Sleep(1000);
+        	continue;
+		}
 
         switch (choice) {
             case 1: {
@@ -395,14 +420,15 @@ void MenuNhapLieu() {
 void NhapDuLieuTuBanPhim() {
     gotoxy(10, 12);
     setColor(14);
+    char check;
 
     int i, j;
-    char inputV[10];
-    char inputE[10];
+    char inputV[100];
+    char inputE[100];
     printf("Nhập số đỉnh: ");
     fgets(inputV, sizeof(inputV), stdin);
 
-    if (sscanf(inputV, "%d", &n) != 1 || n <= 0 || n > MAXN) {
+    if (sscanf(inputV, "%d %c", &n, &check) != 1 || n <= 0 || n > MAXN) {
         setColor(4);
         gotoxy(10, 13);
         printf("Dữ liệu nhập vào không hợp lệ, vui lòng kiểm tra lại!!!\n");
@@ -413,11 +439,11 @@ void NhapDuLieuTuBanPhim() {
     printf("Nhập số cạnh: ");
     fgets(inputE, sizeof(inputE), stdin);
 
-    if (sscanf(inputE, "%d", &m) != 1 || m <= 0 || m > n * (n - 1) / 2) {
+    if (sscanf(inputE, "%d %c", &m, &check) != 1 || m <= 0 || m > n * (n - 1) / 2) {
         setColor(4);
         gotoxy(10, 14);
         printf("Dữ liệu nhập vào không hợp lệ, vui lòng kiểm tra lại!!!\n");
-        MenuQuayLai(0, 0);
+        MenuQuayLai(0, 1);
         return;
     }
 
@@ -437,7 +463,7 @@ void NhapDuLieuTuBanPhim() {
     	fgets(temp, sizeof(temp), stdin);
         int x, y, w;
         
-        if (sscanf(temp, "%d %d %d", &x, &y, &w) != 3 || x <= 0 || y <= 0 || w < 0) {
+        if (sscanf(temp, "%d %d %d %c", &x, &y, &w, &check) != 3 || x <= 0 || y <= 0 || w < 0) {
         	setColor(4);
             gotoxy(10, ++cur);
             printf("Dữ liệu nhập vào không hợp lệ, vui lòng kiểm tra lại!!!\n");
@@ -479,9 +505,10 @@ void NhapDuLieuTuBanPhim() {
 }   
 
 void NhapDuLieuTuFile() {
+    char check;
     int choice;
-    char input[10];
-    char filename[20];
+    char input[100];
+    char filename[100];
     FILE *f;
 
     while (1) {
@@ -507,7 +534,7 @@ void NhapDuLieuTuFile() {
         setColor(8);
         printf("Nhập yêu cầu: ");
         fgets(input, sizeof(input), stdin);
-        if (sscanf(input, "%d", &choice) != 1) {
+        if (sscanf(input, "%d %c", &choice, &check) != 1) {
         	setColor(4);
         	gotoxy(10, 19);
             printf("Lựa chọn không hợp lệ, vui lòng nhập lại!!!");
@@ -637,15 +664,16 @@ void NhapDuLieuTuFile() {
 }
 
 void NhapDuLieuTuDoThi() {
+    char check;
 	initwindow(800, 1200);
 	settextstyle(10, HORIZ_DIR, 1);	
-  	char vertex[10];
-    char edge[10];
+  	char vertex[100];
+    char edge[100];
     setColor(14);
     gotoxy(10, 12);
     printf("Nhập số đỉnh: ");
     fgets(vertex, sizeof(vertex), stdin);
-    if (sscanf(vertex, "%d", &n) != 1 || n <= 0 || n > MAXN) {
+    if (sscanf(vertex, "%d %c", &n, &check) != 1 || n <= 0 || n > MAXN) {
     	closegraph();
     	setColor(4);
     	gotoxy(10, 13);
@@ -660,7 +688,7 @@ void NhapDuLieuTuDoThi() {
     gotoxy(10, 13);
     printf("Nhập số cạnh: ");
     fgets(edge, sizeof(edge), stdin);
-    if (sscanf(edge, "%d", &m) != 1 || m <= 0 || m > n * (n - 1) / 2) {
+    if (sscanf(edge, "%d %c", &m, &check) != 1 || m <= 0 || m > n * (n - 1) / 2) {
     	closegraph();
     	setColor(4);
     	gotoxy(10, 14);
@@ -701,8 +729,9 @@ void NhapDuLieuTuDoThi() {
 }
 
 void MenuChonThuatToan(int x, int y) {
+    char check;
     int choice;
-    char input[10];
+    char input[100];
     
     do {
         system("cls");
@@ -741,7 +770,7 @@ void MenuChonThuatToan(int x, int y) {
         printf("Nhập yêu cầu: ");
         
         fgets(input, sizeof(input), stdin);
-        if (sscanf(input, "%d", &choice) != 1) {
+        if (sscanf(input, "%d %c", &choice, &check) != 1) {
         	setColor(4);
             gotoxy(10 + x, 23 + y);
             printf("Lựa chọn không hợp lệ! Vui lòng nhập lại!!!");
@@ -791,7 +820,8 @@ void MenuChonThuatToan(int x, int y) {
 }
 
 void xuatKetQua(Canh MST[], int so_canh, int tongTrongSo) {
-    char input[10];
+	char check;
+    char input[100];
     int choice;
 
     do {
@@ -828,7 +858,16 @@ void xuatKetQua(Canh MST[], int so_canh, int tongTrongSo) {
         printf("Nhập yêu cầu:                                      ");
         gotoxy(24, 23);
         fgets(input, sizeof(input), stdin);
-        sscanf(input, "%d", &choice);
+        if (sscanf(input, "%d %c", &choice, &check) != 1) {
+        	setColor(4);
+            gotoxy(10, 24);
+            printf("Lựa chọn không hợp lệ! Vui lòng nhập lại!!!");
+            Sleep(1000);
+            setColor(0);
+            gotoxy(10, 24);
+            printf("Lựa chọn không hợp lệ! Vui lòng nhập lại!!!");
+            continue;
+        }
 
         int y = 16;
         switch (choice) {
@@ -1065,9 +1104,12 @@ void xuatKetQua(Canh MST[], int so_canh, int tongTrongSo) {
             }
             default:
                 setColor(4);
-                gotoxy(10, 25);
+                gotoxy(10, 24);
                 printf("Lựa chọn không hợp lệ, vui lòng nhập lại!!!");
                 Sleep(1000);
+                setColor(0);
+	            gotoxy(10, 24);
+	            printf("Lựa chọn không hợp lệ! Vui lòng nhập lại!!!");
         }
     } while (1);
 }
@@ -1089,7 +1131,7 @@ void ve_duong(int x1, int y1, int x2, int y2, int mau) {
 
 void in_trong_so(int x1, int y1, int x2, int y2, int w) {
 	settextstyle(10, HORIZ_DIR, 1);	
-    char s[10];
+    char s[100];
     sprintf(s, "%d", w);
     outtextxy((x1 + x2) / 2, (y1 + y2) / 2, s);
 }
@@ -1117,6 +1159,7 @@ void nhap_dinh() {
 }
 
 void nhap_canh() {
+    char check;
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
             adj[i][j] = INT_MAX;
@@ -1140,9 +1183,9 @@ void nhap_canh() {
 		ve_duong(dinh[d1].x, dinh[d1].y, dinh[d2].x, dinh[d2].y, 15);
 		gotoxy(10, cur++);
         printf("Nhập trọng số cạnh %d - %d: ", d1, d2);
-        char inputW[10];
+        char inputW[100];
         fgets(inputW, sizeof(inputW), stdin);
-        if (sscanf(inputW, "%d", &w) != 1 || w <= 0) {
+        if (sscanf(inputW, "%d %c", &w, &check) != 1 || w <= 0) {
         	setColor(4);
             gotoxy(10, cur++);
             closegraph();
@@ -1190,25 +1233,28 @@ void tu_dong_ve_canh(int n, ToaDo ds[], int adj[MAXN][MAXN]) {
 
 // ===== CAC HAM XU LI CHINH =====
 void Prim() {
+	char check;
     int Dinh;
-    char priminput[10];
-    setColor(8);
-    gotoxy(10, 11);
-    printf("Chọn đỉnh bắt đầu thuật toán Prim (1 - %d): ", n);
+    char priminput[100];
+
     while (1) {
+    	setColor(8);
+    	gotoxy(10, 11);
+    	printf("Chọn đỉnh bắt đầu thuật toán Prim (1 - %d):                          ", n);
+    	gotoxy(53 ,11);
         fgets(priminput, sizeof(priminput), stdin);
-        sscanf(priminput, "%d", &Dinh);
+        if (sscanf(priminput, "%d %c", &Dinh, &check) != 1 || Dinh < 1 || Dinh > n) {
+        	gotoxy(10, 12);
+        	setColor(4);
+        	printf("Lựa chọn không hợp lệ, vui lòng nhập lại!!!");
+        	Sleep(1000);
+        	gotoxy(10, 12);
+        	setColor(0);
+        	printf("Lựa chọn không hợp lệ, vui lòng nhập lại!!!");
+        	continue;
+		}
         if (Dinh >= 1 && Dinh <= n) 
 			break;
-        setColor(4);
-        gotoxy(10, 12);
-        printf("Lựa chọn không hợp lệ, vui lòng nhập lại!!!");
-        Sleep(1000);
-        system("cls");
-        Khung();
-        gotoxy(10, 11);
-        setColor(8);
-        printf("Chọn đỉnh bắt đầu thuật toán Prim (1 - %d): ", n);
     }
     printf("\n");
     setColor(7);
