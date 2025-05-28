@@ -665,7 +665,7 @@ void NhapDuLieuTuFile() {
 
 void NhapDuLieuTuDoThi() {
     char check;
-	initwindow(800, 1200);
+	initwindow(800, 800);
 	settextstyle(10, HORIZ_DIR, 1);	
   	char vertex[100];
     char edge[100];
@@ -1036,7 +1036,7 @@ void xuatKetQua(Canh MST[], int so_canh, int tongTrongSo) {
     				char s[50];
 
 	   				sprintf(s, "Tong trong so nho nhat: %d", tongTrongSo);
-	   				outtextxy(30, 500, s);
+	   				outtextxy(30, 700, s);
 	  				setColor(10);
 	                gotoxy(10, y++);
 	                printf("Đã xuất kết quả vào đồ thị thành công!");
@@ -1054,11 +1054,12 @@ void xuatKetQua(Canh MST[], int so_canh, int tongTrongSo) {
 		   			}	 
 	   				setcolor(0);
 	   				sprintf(s, "Tong trong so nho nhat: %d", tongTrongSo);
-	   				outtextxy(30, 500, s);
+	   				outtextxy(30, 700, s);
 	   				return;
             	}
             	else {
-	                initwindow(800, 1200);
+	                initwindow(800, 800);
+                    settextstyle(10, HORIZ_DIR, 1);	
 				    tu_dong_ve_dinh(n, dinh, 400, 300, 200);
 				    tu_dong_ve_canh(n, dinh, adj);
 				    setColor(8);
@@ -1080,7 +1081,7 @@ void xuatKetQua(Canh MST[], int so_canh, int tongTrongSo) {
 
 				    char s[50];
 				    sprintf(s, "Tong trong so nho nhat: %d", tongTrongSo);
-				    outtextxy(10, 580, s);
+				    outtextxy(30, 700, s);
             	}
             	setColor(10);
             	gotoxy(10, y++);
